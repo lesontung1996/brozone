@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brozone Landing Page</title>
+  <title>Brozone - Gaming Center</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -13,15 +14,134 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <section class="header">
-    <img class="header__logo" src="/images/logo.png" alt="Brozone Logo">
-  </section>
-  <section class="hero">
-    <div class="container">
-      <h1>alo</h1>
-    </div>
-  </section>
+  <main>
+    <h1 class="visually-hidden">Brozone - Gaming Center</h1>
+
+    <section class="hero">
+      <div class="hero__carousel js-hero-carousel">
+        <div class="hero__item">
+          <img class="hero__image" src="/images/room-1.jpg" alt="Brozone Image 1" loading="lazy">
+        </div>
+        <div class="hero__item">
+          <img class="hero__image" src="/images/room-2.jpg" alt="Brozone Image 2" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding form-wrapper">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-12 col-md-6">
+            <div class="logo">
+              <img class="logo__image" src="/images/logo.png" alt="Bro Zone Logo">
+            </div>
+          </div>
+          <div class="col-12 col-md-6 order-first order-md-last">
+            <div class="form">
+              <h2 class="text-uppercase form__title">Đăng ký ngay để nhận <br>2 giờ chơi miễn phí</h2>
+              <p class="mb-4 text-white-50 form__description">Mỗi người chơi được áp dụng 1 lần</p>
+              <form>
+                <div class="mb-3">
+                  <label for="input-name" class="form-label">Họ và Tên</label>
+                  <input type="text" class="form-control" id="input-name" name="name">
+                </div>
+                <div class="mb-3">
+                  <label for="input-account" class="form-label">Tên tài khoản</label>
+                  <input type="text" class="form-control" id="input-account" name="account">
+                </div>
+                <div class="mb-3">
+                  <label for="input-time" class="form-label">Thời gian đến chơi</label>
+                  <select class="form-select" id="input-time" aria-describedby="timeHelp"  name="play-time">
+                    <option selected>Chọn</option>
+                    <option value="sáng">Sáng</option>
+                    <option value="chiều">Chiều</option>
+                    <option value="tối">Tối</option>
+                  </select>
+                  <div id="timeHelp" class="form-text text-white-50">Thông tin này sẽ giúp chúng tôi phục vụ bạn tốt hơn.</div>
+                </div>
+                <button type="submit" class="btn btn-dark form__button"><span>Đăng ký</span></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding game-gallery">
+      <div class="container">
+        <h2 class="text-uppercase game-gallery__title">Phục vụ nhiều tựa game</h2>
+        <p class="mb-4 mb-lg-5 text-white-50 game-gallery__description">Cùng với cấu hình máy mạnh mẽ</p>
+      </div>
+      <div class="game__carousel js-game-carousel">
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-csgo.jpg" alt="Counter Strike Global Offensive" loading="lazy">
+          </div>
+          <p class="game__item-title">Counter Strike<br>Global Offensive</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-dota.jpg" alt="Dota 2" loading="lazy">
+          </div>
+          <p class="game__item-title">Dota 2</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-fifa.jpg" alt="FIFA Online 4" loading="lazy">
+          </div>
+          <p class="game__item-title">FIFA Online 4</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-lol.jpg" alt="League of Legends" loading="lazy">
+          </div>
+          <p class="game__item-title">League of Legends</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-pubg.jpg" alt="PlayerUnknown's Battlegrounds" loading="lazy">
+          </div>
+          <p class="game__item-title">PlayerUnknown's<br>Battlegrounds</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-valorant.jpg" alt="Valorant" loading="lazy">
+          </div>
+          <p class="game__item-title">Valorant</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-etc.jpg" alt="Nhiều tựa game khác" loading="lazy">
+          </div>
+          <p class="game__item-title">Nhiều tựa game khác</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-wot.jpg" alt="World of Tanks" loading="lazy">
+          </div>
+          <p class="game__item-title">World of Tanks</p>
+        </div>
+        <div class="game__item">
+          <div class="game__image-wrapper">
+            <img class="game__image" src="/images/game-gta.jpg" alt="Grand Theft Auto" loading="lazy">
+          </div>
+          <p class="game__item-title">Grand Theft Auto</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row gy-2 justify-content-between">
+          <div class="col-12 col-md-auto"><p class="footer__item">Địa chỉ: 12 Hoàng Ngọc Phách, Lê Chân, Hải Phòng</p></div>
+          <div class="col-12 col-md-auto"><p class="footer__item">Hotline: <a href="tel:0704070215">0704070215</a> - <a href="tel:0838527886">0838527886</a></p></div>
+          <div class="col-12 col-md-auto"><p class="footer__item">Facebook: <a href="https://www.facebook.com/BROZONECYBER">BROZONE CYBER GAME</a></p></div>
+        </div>
+      </div>
+    </footer>
+  </main>
 
   <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script src="scripts/script.js" />
 </body>
 </html>
