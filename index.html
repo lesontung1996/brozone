@@ -20,10 +20,16 @@
     <section class="hero">
       <div class="hero__carousel js-hero-carousel">
         <div class="hero__item">
-          <img class="hero__image" src="/images/room-1.jpg" alt="Brozone Image 1" loading="lazy">
+          <img class="hero__image" src="/images/Hero-1.jpg" alt="Brozone 1" loading="eager">
         </div>
         <div class="hero__item">
-          <img class="hero__image" src="/images/room-2.jpg" alt="Brozone Image 2" loading="lazy">
+          <img class="hero__image" src="/images/Hero-2.jpg" alt="Brozone 2" loading="lazy">
+        </div>
+        <div class="hero__item">
+          <img class="hero__image" src="/images/Hero-3.jpg" alt="Brozone 3" loading="lazy">
+        </div>
+        <div class="hero__item">
+          <img class="hero__image" src="/images/Hero-4.jpg" alt="Brozone 4" loading="lazy">
         </div>
       </div>
     </section>
@@ -31,37 +37,40 @@
     <section class="section-padding form-wrapper">
       <div class="container">
         <div class="row g-5 align-items-center">
-          <div class="col-12 col-md-5">
+          <div class="col-12 col-xl-5">
             <div class="logo">
               <img class="logo__image" src="/images/logo.png" alt="Bro Zone Logo">
             </div>
           </div>
-          <div class="col-12 col-md-7 order-first order-md-last">
-            <div class="form">
+          <div class="col-12 col-xl-7 order-first order-xl-last">
+            <div class="form" id="form-survey">
               <h2 class="text-uppercase form__title">Đăng ký ngay để nhận <br>2 giờ chơi miễn phí</h2>
               <p class="mb-4 text-white-50 form__description">Mỗi người chơi được áp dụng 1 lần</p>
-              <form class="form-survey js-form-survey">
-                <div class="row row-cols-2">
+              <form class="form-survey js-form-survey" @submit.once.prevent="formSubmitHandler">
+                <div class="row row-cols-1 row-cols-sm-2">
                   <div class="mb-3 col">
                     <label for="input-name" class="form-label">Họ và Tên</label>
-                    <input type="text" class="form-control" id="input-name" name="name" required>
+                    <input type="text" class="form-control" id="input-name" name="name" required v-model="name">
                   </div>
                   <div class="mb-3 col">
                     <label for="input-account" class="form-label">Tên tài khoản sẽ lập tại Brozone</label>
-                    <input type="text" class="form-control" id="input-account" name="account" required>
+                    <input type="text" class="form-control" id="input-account" name="account" required v-model="account">
+                    <div class="form-text text-danger" v-if="duplicatedAccount && !submitSuccess" v-cloak>Tên tài khoản này đã được đăng ký.</div>
                   </div>
                   <div class="mb-3 col">
                     <label for="input-phone" class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control" id="input-phone" name="phone" required>
+                    <input type="text" class="form-control" id="input-phone" name="phone" required v-model="phone">
+                    <div class="form-text text-danger" v-if="duplicatedPhone && !submitSuccess" v-cloak>Số điện thoại này đã được đăng ký.</div>
                   </div>
                   <div class="mb-3 col">
                     <label for="input-email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="input-email" name="email" required>
+                    <input type="email" class="form-control" id="input-email" name="email" required v-model="email">
+                    <div class="form-text text-danger" v-if="duplicatedEmail && !submitSuccess" v-cloak>Email này đã được đăng ký.</div>
                   </div>
                   <div class="mb-3 col">
                     <label for="input-date" class="form-label">Ngày dự kiến đến chơi</label>
-                    <select class="form-select" id="input-date" name="play-date" required>
-                      <option disabled selected value> -- Chọn -- </option>
+                    <select class="form-select" id="input-date" name="play-date" required v-model="date">
+                      <option disabled selected value=""> -- Chọn -- </option>
                       <option value="19/6">19/6</option>
                       <option value="20/6">20/6</option>
                       <option value="21/6">21/6</option>
@@ -69,8 +78,8 @@
                   </div>
                   <div class="mb-3 col">
                     <label for="input-time" class="form-label">Thời gian đến chơi</label>
-                    <select class="form-select" id="input-time" aria-describedby="timeHelp" name="play-time" required>
-                      <option disabled selected value> -- Chọn -- </option>
+                    <select class="form-select" id="input-time" aria-describedby="timeHelp" name="play-time" required v-model="time">
+                      <option disabled selected value=""> -- Chọn -- </option>
                       <option value="sáng">Sáng</option>
                       <option value="chiều">Chiều</option>
                       <option value="tối">Tối</option>
@@ -78,7 +87,18 @@
                     <div id="timeHelp" class="form-text text-white-50">Thông tin này sẽ giúp chúng tôi phục vụ bạn tốt hơn.</div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-dark form__button"><span>Đăng ký</span></button>
+                <template v-if="date && time && !submitSuccess" v-cloak>
+                  <p v-if="avaiableSlots">
+                    Còn <b>{{ avaiableSlots }}</b> máy trống.
+                  </p>
+                  <p class="text-danger" v-else>
+                    Khung giờ này đã hết máy, quý khách vui lòng chọn khung giờ khác.
+                  </p>
+                </template>
+                <div class="alert alert-success rounded-0 form__message-success js-form-message-success" role="alert" v-if="submitSuccess" v-cloak>
+                  Quý khách đã đăng ký thành công! Hẹn gặp quý khách tại Brozone Cyber ❤️ <br>12 Hoàng Ngọc Phách, Lê Chân, Hải Phòng.
+                </div>
+                <button type="submit" class="btn btn-dark form__button" :disabled="!submitable"><span>Đăng ký ngay</span></button>
               </form>
             </div>
           </div>
@@ -162,6 +182,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <script src="https://unpkg.com/vue@3.0.2"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>

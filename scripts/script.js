@@ -12,7 +12,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
   var db = firebase.firestore();
+  let surveysRef = db.collection('survey')
+  let allSurvey = []
+  surveysRef.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        allSurvey.push(doc.data())
+    });
+    Vue.createApp(Form).mount('#form-survey')
+  })
+  .catch((error) => {
+      console.log("Error getting documents: ", error);
+  });
 
+
+  // Init Carousel
   const HERO_CAROUSEL_SELECTOR = '.js-hero-carousel'
   const heroCarousel = document.querySelector(HERO_CAROUSEL_SELECTOR);
   const heroFlickity = new Flickity( heroCarousel, {
@@ -36,35 +49,53 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // autoPlay: 5000
   });
 
-  const validateForm = (contact) => {
-    emptyFields = Object.keys(contact).filter(key => !contact[key])
-    emptyFields.length && window.alert('Qúy khách vui lòng nhập đủ các trường.')
-    return !emptyFields.length
-  }
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault()
-    const form = e.target
-    const name = document.querySelector('#input-name').value
-    const account = document.querySelector('#input-account').value
-    const phone = document.querySelector('#input-phone').value
-    const email = document.querySelector('#input-email').value
-    const date = document.querySelector('#input-date').value
-    const time = document.querySelector('#input-time').value
-    const contact = { name, account, phone, email, date, time }
-
-    if (validateForm(contact)) {
-      let surveysRef = db.collection('survey')
-  
-      surveysRef.add(contact).then((e) => {
-        form.reset()
-        console.log(e)
-      })
+  // Vue form
+  const Form = {
+    data() {
+      return {
+        name: '',
+        phone: '',
+        email: '',
+        account: '',
+        date: '',
+        time: '',
+        allSurvey,
+        submitSuccess: false
+      }
+    },
+    computed: {
+      avaiableSlots() {
+        return 2 - this.allSurvey.filter(({date, time}) => this.date === date && this.time === time).length
+      },
+      duplicatedAccount() {
+        return this.allSurvey.map(({account}) => account).includes(this.account)
+      },
+      duplicatedPhone() {
+        return this.allSurvey.map(({phone}) => phone).includes(this.phone)
+      },
+      duplicatedEmail() {
+        return this.allSurvey.map(({email}) => email).includes(this.email)
+      },
+      submitable() {
+        return !this.duplicatedAccount && !this.duplicatedPhone && !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
+      }
+    },
+    methods: {
+      formSubmitHandler() {
+        const contact = {
+          name: this.name,
+          phone: this.phone,
+          email: this.email,
+          account: this.account,
+          date: this.date,
+          time: this.time,
+        }
+        this.submitable && surveysRef.add(contact).then((e) => {
+          this.submitSuccess = true
+          this.allSurvey.push(contact)
+        })
+      }
     }
-
   }
-
-  const FORM_SELECTOR = '.js-form-survey'
-  const form = document.querySelector(FORM_SELECTOR)
-  form.addEventListener('submit', formSubmitHandler)
 });

@@ -33,6 +33,10 @@ a:hover {
   color: var(--white);
 }
 
+[v-cloak] {
+  display: none;
+}
+
 /* End Global */
 
 .hero__item {
