@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     },
     computed: {
       avaiableSlots() {
-        return 2 - this.allSurvey.filter(({date, time}) => this.date === date && this.time === time).length
+        return 50 - this.allSurvey.filter(({date, time}) => this.date === date && this.time === time).length
       },
       duplicatedAccount() {
         return this.allSurvey.map(({account}) => account).includes(this.account)
