@@ -55,7 +55,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     data() {
       return {
         name: '',
-        phone: '',
         email: '',
         account: '',
         date: '',
@@ -71,21 +70,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
       duplicatedAccount() {
         return this.allSurvey.map(({account}) => account).includes(this.account)
       },
-      duplicatedPhone() {
-        return this.allSurvey.map(({phone}) => phone).includes(this.phone)
-      },
       duplicatedEmail() {
         return this.allSurvey.map(({email}) => email).includes(this.email)
       },
       submitable() {
-        return !this.duplicatedAccount && !this.duplicatedPhone && !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
+        return !this.duplicatedAccount && !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
       }
     },
     methods: {
       formSubmitHandler() {
         const contact = {
           name: this.name,
-          phone: this.phone,
           email: this.email,
           account: this.account,
           date: this.date,
