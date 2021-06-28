@@ -59,11 +59,6 @@
                     <div class="form-text text-danger" v-if="duplicatedAccount && !submitSuccess" v-cloak>Tên tài khoản này đã được đăng ký.</div>
                   </div>
                   <div class="mb-3 col">
-                    <label for="input-phone" class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control" id="input-phone" name="phone" required v-model="phone">
-                    <div class="form-text text-danger" v-if="duplicatedPhone && !submitSuccess" v-cloak>Số điện thoại này đã được đăng ký.</div>
-                  </div>
-                  <div class="mb-3 col">
                     <label for="input-email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="input-email" name="email" required v-model="email">
                     <div class="form-text text-danger" v-if="duplicatedEmail && !submitSuccess" v-cloak>Email này đã được đăng ký.</div>
