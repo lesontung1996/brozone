@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         return this.allSurvey.map(({email}) => email).includes(this.email)
       },
       submitable() {
-        return !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
+        return !this.duplicatedEmail && this.avaiableSlots > 0 && !this.submitSuccess
       }
     },
     methods: {

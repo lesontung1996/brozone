@@ -79,7 +79,7 @@
                   </div>
                 </div>
                 <template v-if="date && time && !submitSuccess" v-cloak>
-                  <p v-if="avaiableSlots">
+                  <p v-if="avaiableSlots > 0">
                     Còn <b>{{ avaiableSlots }}</b> máy trống.
                   </p>
                   <p class="text-danger" v-else>
