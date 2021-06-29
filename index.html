@@ -54,11 +54,6 @@
                     <input type="text" class="form-control" id="input-name" name="name" required v-model="name">
                   </div>
                   <div class="mb-3 col">
-                    <label for="input-account" class="form-label">Tên tài khoản sẽ lập tại Brozone</label>
-                    <input type="text" class="form-control" id="input-account" name="account" required v-model="account">
-                    <div class="form-text text-danger" v-if="duplicatedAccount && !submitSuccess" v-cloak>Tên tài khoản này đã được đăng ký.</div>
-                  </div>
-                  <div class="mb-3 col">
                     <label for="input-email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="input-email" name="email" required v-model="email">
                     <div class="form-text text-danger" v-if="duplicatedEmail && !submitSuccess" v-cloak>Email này đã được đăng ký.</div>

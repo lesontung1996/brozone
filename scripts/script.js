@@ -56,7 +56,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
       return {
         name: '',
         email: '',
-        account: '',
         date: '',
         time: '',
         allSurvey,
@@ -67,14 +66,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
       avaiableSlots() {
         return 50 - this.allSurvey.filter(({date, time}) => this.date === date && this.time === time).length
       },
-      duplicatedAccount() {
-        return this.allSurvey.map(({account}) => account).includes(this.account)
-      },
       duplicatedEmail() {
         return this.allSurvey.map(({email}) => email).includes(this.email)
       },
       submitable() {
-        return !this.duplicatedAccount && !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
+        return !this.duplicatedEmail && this.avaiableSlots && !this.submitSuccess
       }
     },
     methods: {
@@ -82,7 +78,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         const contact = {
           name: this.name,
           email: this.email,
-          account: this.account,
           date: this.date,
           time: this.time,
         }
