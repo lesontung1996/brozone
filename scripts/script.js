@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
   const getSurvey = () => {
     const allSurvey = localStorage.getItem('brozoneSurvey')
-    return allSurvey ? JSON.parse(allSurvey) : false
+    return allSurvey ? JSON.parse(allSurvey) : []
   }
 
   const initFirebase = () => {
@@ -24,7 +24,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     firebase.analytics();
     var db = firebase.firestore();
     let surveysRef = db.collection('survey')
-    let allSurvey = []
     surveysRef.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           allSurvey.push(doc.data())
@@ -37,7 +36,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
   }
 
-  const allSurvey = getSurvey()
+  let allSurvey = getSurvey()
 
   // Init Carousel
   const HERO_CAROUSEL_SELECTOR = '.js-hero-carousel'
