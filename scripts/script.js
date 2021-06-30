@@ -8,22 +8,36 @@ window.addEventListener('DOMContentLoaded', (event) => {
     appId: "1:742089664744:web:80b162388415e18b73815d",
     measurementId: "G-Q71EW4F6H7"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-  var db = firebase.firestore();
-  let surveysRef = db.collection('survey')
-  let allSurvey = []
-  surveysRef.get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        allSurvey.push(doc.data())
-    });
-    Vue.createApp(Form).mount('#form-survey')
-  })
-  .catch((error) => {
-      console.log("Error getting documents: ", error);
-  });
 
+  const saveSurvey = (surveys) => {
+    const surveyJson = JSON.stringify(surveys)
+    localStorage.setItem('brozoneSurvey', surveyJson)
+  }
+
+  const getSurvey = () => {
+    const allSurvey = localStorage.getItem('brozoneSurvey')
+    return allSurvey ? JSON.parse(allSurvey) : false
+  }
+
+  const initFirebase = () => {
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var db = firebase.firestore();
+    let surveysRef = db.collection('survey')
+    let allSurvey = []
+    surveysRef.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          allSurvey.push(doc.data())
+      });
+      saveSurvey(allSurvey)
+      Vue.createApp(Form).mount('#form-survey')
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  }
+
+  const allSurvey = getSurvey()
 
   // Init Carousel
   const HERO_CAROUSEL_SELECTOR = '.js-hero-carousel'
@@ -87,5 +101,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
         })
       }
     }
+  }
+
+  if (allSurvey.length) {
+    Vue.createApp(Form).mount('#form-survey')
+  } else {
+    initFirebase()
   }
 });
