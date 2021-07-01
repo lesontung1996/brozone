@@ -8,6 +8,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
     appId: "1:742089664744:web:80b162388415e18b73815d",
     measurementId: "G-Q71EW4F6H7"
   };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var db = firebase.firestore();
+  let surveysRef = db.collection('survey')
 
   const saveSurvey = (surveys) => {
     const surveyJson = JSON.stringify(surveys)
@@ -20,10 +24,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 
   const initFirebase = () => {
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    var db = firebase.firestore();
-    let surveysRef = db.collection('survey')
     surveysRef.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           allSurvey.push(doc.data())
